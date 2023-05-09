@@ -19,6 +19,7 @@ import com.cyn.wandroider.ui.page.login.LoginPage
 import com.cyn.wandroider.ui.page.login.LoginViewModel
 import com.cyn.wandroider.ui.page.love.LovePage
 import com.cyn.wandroider.ui.page.me.MePage
+import com.cyn.wandroider.ui.theme.AppTheme
 
 /**
  *    author : cyn
@@ -85,7 +86,7 @@ fun BottomNavBarView(navCtrl: NavHostController) {
                 icon = { Icon(imageVector = screen.imageVector, contentDescription = null)},
                 label = { Text(text = stringResource(id = screen.resourceId))},
                 selected = currentDestination?.route == screen.route,
-                modifier = Modifier.background(Color(3, 213, 197)),
+                modifier = Modifier.background(AppTheme.colors.themeUi),
                 onClick = {
                     navCtrl.navigate(screen.route){
                         launchSingleTop = true
