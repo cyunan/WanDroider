@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cyn.wandroider.R
+import com.cyn.wandroider.ui.theme.AppTheme
 import com.cyn.wandroider.ui.widget.HttpLayout
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -155,9 +156,9 @@ fun LoginPage(
                     ) {
                         Checkbox(
                             checked = true, onCheckedChange = {},
-                            colors = CheckboxDefaults.colors(checkedColor = Color(0XFF0DBEBF))
+                            colors = CheckboxDefaults.colors(checkedColor = AppTheme.colors.themeUi)
                         )
-                        Text(text = "用户注册", color = Color(0XFF0DBEBF))
+                        Text(text = "用户注册", color = AppTheme.colors.themeUi)
                     }
                 }
 
@@ -177,7 +178,11 @@ fun LoginPage(
                                     )
                                 )
                             }
-                        }) {
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = AppTheme.colors.themeUi,
+                            contentColor = AppTheme.colors.listItem
+                        )) {
                             Text(text = "Compose 登陆", fontSize = 18.sp)
                         }
 
