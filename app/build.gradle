@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 //    id 'dagger.hilt.android.plugin'
 }
 
@@ -84,6 +85,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+    //paging分页库
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
+    testImplementation "androidx.paging:paging-common:$pagingVersion"
+    implementation "androidx.paging:paging-compose:$pagingComposeVersion"
 
     //hilt inject framework
 //    implementation "com.google.dagger:hilt-android:2.42"

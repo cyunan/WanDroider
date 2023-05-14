@@ -1,10 +1,8 @@
 package com.cyn.wandroider.ui.http
 
-import com.cyn.wandroider.ui.page.login.LoginIntent
+import com.cyn.wandroider.ui.page.home.square.Article
 import com.cyn.wandroider.ui.page.login.UserInfo
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  *    author : cyn
@@ -18,5 +16,8 @@ interface WanApi {
     suspend fun login(
         @Field("username") userName: String,
         @Field("password") password: String
-    ):BasicRes<UserInfo>
+    ):BaseRes<UserInfo>
+
+    @GET("/user_article/list/{page}/json")
+    suspend fun getSquareData(@Path("page") page: Int): BaseRes<ListWrapper<Article>>
 }
