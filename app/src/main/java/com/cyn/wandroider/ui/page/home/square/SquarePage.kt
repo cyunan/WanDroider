@@ -4,15 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,11 +18,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.cyn.wandroider.ui.widget.RefreshLayout
-import kotlinx.coroutines.flow.Flow
 
 /**
  *    author : cyn
@@ -53,40 +48,46 @@ fun SquarePage(viewModel: SquareViewModel = SquareViewModel()) {
         onRefresh = {}
     ){
         itemsIndexed(squareData){ _, item ->
-            androidx.compose.material.Surface(
-                elevation = 10.dp, // item间距
-                modifier = Modifier.padding(10.dp), //item内边距
-                shape = RoundedCornerShape(10.dp) //圆角弧度
-            ) {
-                ListItem(
-                    text = {
-                        Text(
-                            text = item!!.title.toString(),
-                            fontSize = 16.sp,
-                            overflow = TextOverflow.Ellipsis, //溢出一行的部分省略
-                            maxLines = 1
-                        )
-                    },
-                    secondaryText = {
-                        Row(modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = SpaceBetween,
-                            verticalAlignment = CenterVertically
-                        ) {
-                            Text(text = "${item!!.shareUser} ${item.niceDate}")
-                            TextButton(onClick = { /*TODO*/ }) {
-                                Text(text = item.zan.toString(), color = Color.Gray)
-                                Image(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = null,
-                                    colorFilter = ColorFilter.tint(color = Color.Red))
-                            }
-                        }
-                    }
-                )
-
-            }
-
+            item?.let { ArticleItem(it) }
         }
+    }
+
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun ArticleItem(item: Article) {
+    androidx.compose.material.Surface(
+        elevation = 10.dp, // item间距
+        modifier = Modifier.padding(10.dp), //item内边距
+        shape = RoundedCornerShape(10.dp) //圆角弧度
+    ) {
+        ListItem(
+            text = {
+                Text(
+                    text = item.title.toString(),
+                    fontSize = 16.sp,
+                    overflow = TextOverflow.Ellipsis, //溢出一行的部分省略
+                    maxLines = 1
+                )
+            },
+            secondaryText = {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = SpaceBetween,
+                    verticalAlignment = CenterVertically
+                ) {
+                    Text(text = "${item.shareUser} ${item.niceDate}")
+                    TextButton(onClick = { /*TODO*/ }) {
+                        Text(text = item.zan.toString(), color = Color.Gray)
+                        Image(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(color = Color.Red))
+                    }
+                }
+            }
+        )
+
     }
 
 }
