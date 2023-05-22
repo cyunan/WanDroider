@@ -21,6 +21,7 @@ const val ROUTE_HOT = "HotScreen"
 const val ROUTE_LOVE = "LoveScreen"
 const val ROUTE_ME = "MeScreen"
 const val ROUTE_LOGIN = "login"
+const val ROUTE_WEBVIEW = "webview"
 
 
 sealed class Screen(

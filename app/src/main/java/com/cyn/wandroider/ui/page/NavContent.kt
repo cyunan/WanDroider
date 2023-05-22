@@ -5,13 +5,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.cyn.wandroider.ui.*
 import com.cyn.wandroider.ui.page.home.HomePage
 import com.cyn.wandroider.ui.page.hot.HotPage
@@ -20,6 +21,9 @@ import com.cyn.wandroider.ui.page.login.LoginViewModel
 import com.cyn.wandroider.ui.page.love.LovePage
 import com.cyn.wandroider.ui.page.me.MePage
 import com.cyn.wandroider.ui.theme.AppTheme
+import com.cyn.wandroider.ui.webview.WebData
+import com.cyn.wandroider.ui.webview.WebViewPage
+import com.cyn.wandroider.utils.fromJson
 
 /**
  *    author : cyn
@@ -34,6 +38,7 @@ fun NavContent() {
     //当前返回栈 实体内容
     val navBackStackEntry by navCtrl.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val scaffoldState = rememberScaffoldState()
     //整体页面搭建
     // 1. 首先创建一个脚手架
     Scaffold(
@@ -51,19 +56,27 @@ fun NavContent() {
             // 页面切换
             NavHost(navController = navCtrl, startDestination = ROUTE_HOME, builder = {
                 composable(route = ROUTE_HOME){
-                    HomePage()
+                    HomePage(navCtrl, scaffoldState)
                 }
                 composable(route = ROUTE_HOT){
-                    HotPage()
+                    HotPage(navCtrl, scaffoldState)
                 }
                 composable(route = ROUTE_LOVE){
-                    LovePage()
+                    LovePage(navCtrl, scaffoldState)
                 }
                 composable(route = ROUTE_ME){
-                    MePage(navCtrl)
+                    MePage(navCtrl, scaffoldState)
                 }
                 composable(route = ROUTE_LOGIN){
-                    LoginPage(navCtrl = navCtrl, loginViewModel = LoginViewModel())
+                    LoginPage(navCtrl = navCtrl, scaffoldState = scaffoldState)
+                }
+                composable(route = "$ROUTE_WEBVIEW/{webData}",
+                    arguments = listOf(navArgument("webData") { type = NavType.StringType })
+                ) {
+                    val args = it.arguments?.getString("webData")?.fromJson<WebData>()
+                    if (args != null) {
+                        WebViewPage(webData = args, navCtrl = navCtrl)
+                    }
                 }
 
             })

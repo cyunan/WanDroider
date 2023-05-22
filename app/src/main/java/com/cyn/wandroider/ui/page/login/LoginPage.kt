@@ -43,6 +43,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginPage(
     navCtrl: NavHostController,
+    scaffoldState: ScaffoldState,
     loginViewModel: LoginViewModel = LoginViewModel()
 ) {
     val imageBitmap: ImageBitmap = ImageBitmap.imageResource(id = R.mipmap.image_3)

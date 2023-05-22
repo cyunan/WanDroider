@@ -2,10 +2,12 @@ package com.cyn.wandroider.ui.page.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.cyn.wandroider.ui.page.home.question.QuestionPage
 import com.cyn.wandroider.ui.page.home.recommened.RecommendedPage
 import com.cyn.wandroider.ui.page.home.square.SquarePage
@@ -32,7 +34,7 @@ val textTabList = listOf(
 )
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HomePage() {
+fun HomePage(navCtrl: NavHostController, scaffoldState: ScaffoldState) {
     // 1. 先拿到协程作用域
     val scope = rememberCoroutineScope()
     // 2. 组合视图
@@ -58,9 +60,9 @@ fun HomePage() {
             modifier = Modifier.padding(bottom = 50.dp)
         ) { page->
             when(page){
-                0 -> SquarePage()
-                1 -> RecommendedPage()
-                2 -> QuestionPage()
+                0 -> SquarePage(navCtrl, scaffoldState)
+                1 -> RecommendedPage(navCtrl, scaffoldState)
+                2 -> QuestionPage(navCtrl, scaffoldState)
             }
         }
     }

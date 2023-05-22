@@ -1,7 +1,9 @@
 package com.cyn.wandroider.ui.page.love
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 
 /**
  *    author : cyn
@@ -11,6 +13,6 @@ import androidx.compose.runtime.Composable
  */
 
 @Composable
-fun LovePage() {
+fun LovePage(navCtrl: NavHostController, scaffoldState: ScaffoldState) {
     Text(text = "LovePage")
 }

@@ -1,7 +1,9 @@
 package com.cyn.wandroider.ui.page.hot
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 
 /**
  *    author : cyn
@@ -11,6 +13,6 @@ import androidx.compose.runtime.Composable
  */
 
 @Composable
-fun HotPage() {
+fun HotPage(navCtrl: NavHostController, scaffoldState: ScaffoldState) {
     Text(text = "HotPage")
 }

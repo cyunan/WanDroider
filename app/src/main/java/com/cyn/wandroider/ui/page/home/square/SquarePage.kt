@@ -1,6 +1,7 @@
 package com.cyn.wandroider.ui.page.home.square
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
 import androidx.compose.foundation.lazy.LazyListState
@@ -18,9 +19,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.cyn.wandroider.ui.ROUTE_WEBVIEW
+import com.cyn.wandroider.ui.webview.WebData
 import com.cyn.wandroider.ui.widget.RefreshLayout
+import com.cyn.wandroider.utils.RouteUtils
 
 /**
  *    author : cyn
@@ -29,10 +34,12 @@ import com.cyn.wandroider.ui.widget.RefreshLayout
  *    desc   : 广场页
  */
 
-@OptIn(ExperimentalMaterialApi::class)
-@Preview
 @Composable
-fun SquarePage(viewModel: SquareViewModel = SquareViewModel()) {
+fun SquarePage(
+    navCtrl: NavHostController,
+    scaffoldState: ScaffoldState,
+    viewModel: SquareViewModel = SquareViewModel()
+) {
     // 1. 使用remember对列表数据做了持久化操作
     // 调用 viewModel.uiState 的时候，会进行网络数据的请求操作
     val uiState = remember { viewModel.uiState }
@@ -48,7 +55,11 @@ fun SquarePage(viewModel: SquareViewModel = SquareViewModel()) {
         onRefresh = {}
     ){
         itemsIndexed(squareData){ _, item ->
-            item?.let { ArticleItem(it) }
+            item?.let {
+                ArticleItem(it) { webData ->
+                    RouteUtils.navTo(navCtrl, ROUTE_WEBVIEW, webData)
+                }
+            }
         }
     }
 
@@ -56,10 +67,10 @@ fun SquarePage(viewModel: SquareViewModel = SquareViewModel()) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ArticleItem(item: Article) {
+fun ArticleItem(item: Article, onSelected: (data: WebData) -> Unit = {}) {
     androidx.compose.material.Surface(
         elevation = 10.dp, // item间距
-        modifier = Modifier.padding(10.dp), //item内边距
+        modifier = Modifier.padding(10.dp).clickable{ onSelected.invoke(WebData(item.title!!, item.link!!)) }, //item内边距
         shape = RoundedCornerShape(10.dp) //圆角弧度
     ) {
         ListItem(

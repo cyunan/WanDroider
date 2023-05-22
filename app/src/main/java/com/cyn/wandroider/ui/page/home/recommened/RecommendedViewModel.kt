@@ -53,7 +53,6 @@ class RecommendedViewModel : ViewModel(){
 
     private fun fetchData() {
         val imageFlow = flow {
-            kotlinx.coroutines.delay(2000)
             emit(NetworkService.wanApi.getBanners())
         }.map { bannerInfo ->
             val result = mutableListOf<BannerData>()

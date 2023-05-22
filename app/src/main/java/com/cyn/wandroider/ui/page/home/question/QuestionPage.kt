@@ -9,15 +9,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.cyn.wandroider.ui.ROUTE_WEBVIEW
 import com.cyn.wandroider.ui.page.home.square.Article
 import com.cyn.wandroider.ui.theme.AppTheme
+import com.cyn.wandroider.ui.webview.WebData
 import com.cyn.wandroider.ui.widget.MainTitle
 import com.cyn.wandroider.ui.widget.MiniTitle
 import com.cyn.wandroider.ui.widget.RefreshLayout
 import com.cyn.wandroider.ui.widget.TextContent
 import com.cyn.wandroider.utils.RegexUtils
+import com.cyn.wandroider.utils.RouteUtils
 
 /**
  *    author : cyn
@@ -26,7 +30,11 @@ import com.cyn.wandroider.utils.RegexUtils
  *    desc   : 问答页
  */
 @Composable
-fun QuestionPage(viewModel: QuestionViewModel = QuestionViewModel()) {
+fun QuestionPage(
+    navCtrl: NavHostController,
+    scaffoldState: ScaffoldState,
+    viewModel: QuestionViewModel = QuestionViewModel()
+) {
     val uiState = remember {
         viewModel.uiState
     }
@@ -35,9 +43,17 @@ fun QuestionPage(viewModel: QuestionViewModel = QuestionViewModel()) {
 
     RefreshLayout(lazyPagingItems = questionData, listState = listState){
         itemsIndexed(questionData){ _, article ->
-            article?.let { QuestionItem(article = article){
-                article.run {  }
-            } }
+            article?.let {
+                QuestionItem(article = article) {
+                    article.run {
+                        RouteUtils.navTo(
+                            navCtrl,
+                            ROUTE_WEBVIEW,
+                            WebData(title, link!!)
+                        )
+                    }
+                }
+            }
         }
     }
 }

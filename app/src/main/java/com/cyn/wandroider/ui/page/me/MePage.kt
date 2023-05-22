@@ -3,6 +3,7 @@ package com.cyn.wandroider.ui.page.me
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +19,7 @@ import com.cyn.wandroider.ui.ROUTE_LOGIN
  *    desc   :
  */
 @Composable
-fun MePage(navCtrl: NavController) {
+fun MePage(navCtrl: NavController, scaffoldState: ScaffoldState) {
     Box(modifier = Modifier.fillMaxSize(),){
         Text(
             text = "登录",
