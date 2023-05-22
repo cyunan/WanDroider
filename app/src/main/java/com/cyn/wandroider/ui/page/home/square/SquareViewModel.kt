@@ -33,9 +33,6 @@ class SquareViewModel : ViewModel(){
     private val pager by lazy {
         // 这里使用了自定义的分页函数，将网络返回的数据封装成一个page对象
         easingPager { page->
-            if ( page >= 6){
-                throw NullPointerException("")
-            }
             delay(2000)
             // 进行网络请求将对应页码的数据进行返回
             NetworkService.wanApi.getSquareData(page)

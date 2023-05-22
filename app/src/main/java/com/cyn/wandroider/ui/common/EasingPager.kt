@@ -75,7 +75,8 @@ fun <K: Any, V: Any> ViewModel.pager(
     val baseConfig = PagingConfig(
         config.pageSize,
         initialLoadSize = config.initialLoadSize,
-        prefetchDistance = config.maxSize,
+        prefetchDistance = config.prefetchDistance,
+        maxSize = config.maxSize,
         enablePlaceholders = config.enablePlaceholders
     )
     // 2. 封装成Pager对象，在viewModelScope作用域缓存flow
