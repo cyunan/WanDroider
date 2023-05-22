@@ -60,7 +60,7 @@ fun <T: Any> RefreshLayout(
     SwipeRefresh(
         state = swipeRefreshState,
         onRefresh = {
-            onRefresh()
+            onRefresh.invoke()
             // 触发LazyPagingItems 对象中缓存的数据的刷新，这样就可以发起网络请求，加载更多的数据
             lazyPagingItems.refresh()
         }) {
@@ -83,8 +83,14 @@ fun <T: Any> RefreshLayout(
                             is LoadState.Loading -> {
                                 LoadingItem()
                             }
-                            is LoadState.Error -> {}
-                            is LoadState.NotLoading -> {}
+                            is LoadState.Error -> {
+                                ErrorItem { retry() }
+                            }
+                            is LoadState.NotLoading -> {
+                                if (loadState.append.endOfPaginationReached) {
+                                    NoMoreItem()
+                                }
+                            }
                         }
                     }
                 }

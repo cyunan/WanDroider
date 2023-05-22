@@ -98,4 +98,8 @@ dependencies {
 //    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 //    kapt "androidx.hilt:hilt-compiler:1.0.0"
 
+    //数据保存，用于cookie持久化
+    implementation "androidx.datastore:datastore-preferences:$datastoreVersion"
+    implementation "androidx.datastore:datastore-core:$datastoreVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.31"
 }

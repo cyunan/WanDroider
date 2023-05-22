@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 sealed class LoginIntent {
     data class DoLogin(val account: String, val password: String) : LoginIntent()
     object DisMissDialog: LoginIntent()
-//    object DoLogin: LoginIntent()
 }
 
 // 由ViewModel传递给View的动作
@@ -35,7 +34,7 @@ data class LoginUiState(
     val account: String = "",
     val password: String = "",
     val isAgree: Boolean = false,
-    val  isShowDialog: Boolean = false,
+    val isShowDialog: Boolean = false,
     val httpState: HttpState<UserInfo> = HttpState.None
 )
 
