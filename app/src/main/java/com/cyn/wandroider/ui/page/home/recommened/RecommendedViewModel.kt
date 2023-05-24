@@ -1,13 +1,17 @@
 package com.cyn.wandroider.ui.page.home.recommened
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
+import com.cyn.wandroider.ui.common.easingPager
 import com.cyn.wandroider.ui.http.HttpState
 import com.cyn.wandroider.ui.http.NetworkService
 import com.cyn.wandroider.ui.page.home.square.Article
+import com.cyn.wandroider.ui.page.home.square.PagingArticle
 import com.cyn.wandroider.ui.page.login.UserInfo
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -23,7 +27,9 @@ import kotlinx.coroutines.launch
 data class RecommendUIState(
     val bannerList: MutableList<BannerData> = mutableListOf(),
     val topArticles: List<Article> = emptyList(),
-    val httpState: HttpState<UserInfo> = HttpState.None
+    val httpState: HttpState<UserInfo> = HttpState.None,
+    val listState: LazyListState = LazyListState(),
+    val pagingData: PagingArticle,
 )
 
 sealed class RecommendIntent{
@@ -31,7 +37,13 @@ sealed class RecommendIntent{
 }
 class RecommendedViewModel : ViewModel(){
     val intentChannel = Channel<RecommendIntent>()
-    var uiState by mutableStateOf( RecommendUIState() )
+    private val pager by lazy {
+        easingPager {
+            NetworkService.wanApi.getIndexList(it)
+        }.cachedIn(viewModelScope)
+    }
+    var uiState by mutableStateOf( RecommendUIState(pagingData = pager) )
+        private set
 
     init {
 //        intentChannel.send(RecommendIntent.FetchData)
@@ -53,6 +65,7 @@ class RecommendedViewModel : ViewModel(){
 
     private fun fetchData() {
         val imageFlow = flow {
+            kotlinx.coroutines.delay(2000)
             emit(NetworkService.wanApi.getBanners())
         }.map { bannerInfo ->
             val result = mutableListOf<BannerData>()

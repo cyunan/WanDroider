@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.cyn.wandroider.ui.page.home.question.QuestionPage
 import com.cyn.wandroider.ui.page.home.recommened.RecommendedPage
+import com.cyn.wandroider.ui.page.home.recommened.RecommendedViewModel
 import com.cyn.wandroider.ui.page.home.square.SquarePage
 import com.cyn.wandroider.ui.theme.AppTheme
 import com.cyn.wandroider.ui.widget.TextTabBar
@@ -61,7 +62,7 @@ fun HomePage(navCtrl: NavHostController, scaffoldState: ScaffoldState) {
         ) { page->
             when(page){
                 0 -> SquarePage(navCtrl, scaffoldState)
-                1 -> RecommendedPage(navCtrl, scaffoldState)
+                1 -> RecommendedPage(navCtrl, scaffoldState, RecommendedViewModel())
                 2 -> QuestionPage(navCtrl, scaffoldState)
             }
         }

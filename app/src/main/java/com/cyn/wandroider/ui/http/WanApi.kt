@@ -35,4 +35,6 @@ interface WanApi {
     @GET("/wenda/list/{page}/json")
     suspend fun getWendaData(@Path("page") page: Int): BaseRes<ListWrapper<Article>>
 
+    @GET("/article/list/{page}/json")
+    suspend fun getIndexList(@Path("page") page: Int): BaseRes<ListWrapper<Article>>
 }
