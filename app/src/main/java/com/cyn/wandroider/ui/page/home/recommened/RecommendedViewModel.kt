@@ -13,9 +13,11 @@ import com.cyn.wandroider.ui.http.NetworkService
 import com.cyn.wandroider.ui.page.home.square.Article
 import com.cyn.wandroider.ui.page.home.square.PagingArticle
 import com.cyn.wandroider.ui.page.login.UserInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  *    author : cyn
@@ -23,7 +25,6 @@ import kotlinx.coroutines.launch
  *    date   : 2023/5/14
  *    desc   :
  */
-
 data class RecommendUIState(
     val bannerList: MutableList<BannerData> = mutableListOf(),
     val topArticles: List<Article> = emptyList(),
@@ -35,7 +36,9 @@ data class RecommendUIState(
 sealed class RecommendIntent{
     object FetchData: RecommendIntent()
 }
-class RecommendedViewModel : ViewModel(){
+
+@HiltViewModel
+class RecommendedViewModel @Inject constructor() : ViewModel(){
     val intentChannel = Channel<RecommendIntent>()
     private val pager by lazy {
         easingPager {

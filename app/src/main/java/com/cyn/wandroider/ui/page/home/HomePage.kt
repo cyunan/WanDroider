@@ -62,7 +62,7 @@ fun HomePage(navCtrl: NavHostController, scaffoldState: ScaffoldState) {
         ) { page->
             when(page){
                 0 -> SquarePage(navCtrl, scaffoldState)
-                1 -> RecommendedPage(navCtrl, scaffoldState, RecommendedViewModel())
+                1 -> RecommendedPage(navCtrl, scaffoldState)
                 2 -> QuestionPage(navCtrl, scaffoldState)
             }
         }

@@ -1,5 +1,6 @@
 package com.cyn.wandroider.ui.page
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -32,6 +33,7 @@ import com.cyn.wandroider.utils.fromJson
  *    desc   : 导航页面
  */
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun NavContent() {
     val navCtrl = rememberNavController()

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.cyn.wandroider.ui.page.login.UserInfo
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  *    author : cyn
@@ -12,7 +13,7 @@ import com.cyn.wandroider.ui.page.login.UserInfo
  *    desc   :
  */
 
-//@HiltAndroidApp
+@HiltAndroidApp
 class MyApplication: Application() {
     var userInfo: UserInfo? = null
     companion object {

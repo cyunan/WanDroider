@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
@@ -33,7 +34,7 @@ import com.cyn.wandroider.utils.RouteUtils
 fun RecommendedPage(
     navCtrl: NavHostController,
     scaffoldState: ScaffoldState,
-    recommendedViewModel: RecommendedViewModel
+    recommendedViewModel: RecommendedViewModel = hiltViewModel()
 ) {
     val uiState = recommendedViewModel.uiState
     val recommendData = uiState.pagingData.collectAsLazyPagingItems()
