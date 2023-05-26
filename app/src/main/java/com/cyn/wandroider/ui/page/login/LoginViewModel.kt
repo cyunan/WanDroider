@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.cyn.wandroider.MyApplication
 import com.cyn.wandroider.ui.http.HttpState
 import com.cyn.wandroider.ui.http.NetworkService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  *    author : cyn
@@ -37,8 +39,8 @@ data class LoginUiState(
     val isShowDialog: Boolean = false,
     val httpState: HttpState<UserInfo> = HttpState.None
 )
-
-class LoginViewModel: ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(): ViewModel() {
     val loginChannel = Channel<LoginIntent>()
     val eventChannel = Channel<LoginViewEvent>()
     private var _loginUiState by mutableStateOf(LoginUiState())

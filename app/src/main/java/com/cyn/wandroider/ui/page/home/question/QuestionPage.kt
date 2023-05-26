@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
@@ -33,7 +34,7 @@ import com.cyn.wandroider.utils.RouteUtils
 fun QuestionPage(
     navCtrl: NavHostController,
     scaffoldState: ScaffoldState,
-    viewModel: QuestionViewModel = QuestionViewModel()
+    viewModel: QuestionViewModel = hiltViewModel()
 ) {
     val uiState = remember {
         viewModel.uiState

@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.cyn.wandroider.ui.common.easingPager
 import com.cyn.wandroider.ui.http.NetworkService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 /**
  *    author : cyn
@@ -29,7 +31,8 @@ data class SquareUIState(
     val listState: LazyListState = LazyListState() //懒加载列表状态
 )
 
-class SquareViewModel : ViewModel(){
+@HiltViewModel
+class SquareViewModel @Inject constructor() : ViewModel(){
     private val pager by lazy {
         // 这里使用了自定义的分页函数，将网络返回的数据封装成一个page对象
         easingPager { page->

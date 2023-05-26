@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.cyn.wandroider.ui.common.easingPager
 import com.cyn.wandroider.ui.http.NetworkService
 import com.cyn.wandroider.ui.page.home.square.PagingArticle
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  *    author : cyn
@@ -22,7 +24,8 @@ data class QuestionUiState(
 
 )
 
-class QuestionViewModel : ViewModel(){
+@HiltViewModel
+class QuestionViewModel @Inject constructor() : ViewModel(){
     private val pager by lazy {
         easingPager { NetworkService.wanApi.getWendaData(it) }
     }

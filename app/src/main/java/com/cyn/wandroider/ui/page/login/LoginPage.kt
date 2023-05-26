@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cyn.wandroider.R
@@ -44,7 +45,7 @@ import kotlinx.coroutines.launch
 fun LoginPage(
     navCtrl: NavHostController,
     scaffoldState: ScaffoldState,
-    loginViewModel: LoginViewModel = LoginViewModel()
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
     val imageBitmap: ImageBitmap = ImageBitmap.imageResource(id = R.mipmap.image_3)
     val deleteIcon: ImageBitmap = ImageBitmap.imageResource(id = R.mipmap.image_1)
